@@ -1,7 +1,7 @@
 {
   "name": "right-click-ignore",
   "author": {"name": "Gregor Lohaus"},
-  "publisher": "Gregor Lohaus",
+  "publisher": "GregorLohaus",
   "license": "GPL-2.0-or-later",
   "icon": "icon.png",
   "repository": {"url": "https://github.com/GregorLohaus/right-click-ignore"},
