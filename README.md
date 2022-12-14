@@ -8,10 +8,12 @@ Add files and folders to the nearest git roots .gitignore and untrack them from 
 Calling out known issues can help limit users opening duplicate issues against your extension.
 
 ## Release Notes
-### 0.0.1
+### 0.0.3
 
-Initial Release
-
+Fix previous feature, auto commit changes
 ### 0.0.2
 
 Automatically untrack files
+### 0.0.1
+
+Initial Release
