@@ -1,5 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
+import { spawn } from 'child_process';
 import { lstatSync, PathLike, readdirSync, writeFile } from 'fs';
 import * as vscode from 'vscode';
 
@@ -32,14 +33,21 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	};
 
+	let untrack = async (path:string,recursive:boolean = false) => {
+		spawn(`git rm ${recursive?"-rm":""} --cached ${path}`);
+	};
+
 	let ignore = vscode.commands.registerCommand('right-click-ignore.ignore', (...args) => {
 		let filepath:string = args[0]['fsPath'] as string;
 		console.log(filepath);
 		findNearGitRoot(filepath).then((result)=>{
 			if(result){
 				console.log(result);
-				let append = lstatSync(filepath).isDirectory()? "/":"";
-				writeFile(result+"/.gitignore",filepath.replace(result+"/","")+append+"\n",{
+				let isDirectory = lstatSync(filepath).isDirectory();
+				let append = isDirectory? "/":"";
+				let gitPath = filepath.replace(result+"/","")+append+"\n";
+				untrack(gitPath,isDirectory);
+				writeFile(result+"/.gitignore",gitPath,{
 					"flag": "a"
 				},()=>{
 					console.log("should have written");
